@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style type="text/css">
+    body {
+         background-color:black;
+        background-image: url(Nadal.png);
+         background-position: 20% 7%;
+        font-size: 100%;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        width: 960px;
+     
+        background-repeat: no-repeat;
+    background-attachment: fixed;
+   
+   background-size: 100px 100px;
+
+   
+
+
+   
+
+    position: fixed;
+    top: 20%;
+    left: 30%;
+    margin-top: -150px;
+    margin-left: -200px;
+
+    }
+
+    h1   {color: yellow; font-style: italic; font-family:"Comic Sans MS";}
+    h2   {color: pink;  font-size: 1.5em;  font-family:"Comic Sans MS"; }
+    h3   {color: blue;    font-family:"Comic Sans MS"; }
+    label   {color: blue;  font-family:"Comic Sans MS"; }
+     #btn2009 {background-color: #008CBA;} 
+    button {  
+
+
+        border-radius: 3px;}
+
+
+  
+
+</style>
+<!-- <body background="test.png">  -->
+  <body onload="draw();"  > 
+    <header>
+
+     
+    <h1> <center> Australian Open Tennis 2004-2014 </center> </h1>
+  </header>
+
+     <center>
+        
+
+       <a href="2004_main_page.html" id="btn2004"><button id="btn2004">2004</button> </a>
+        <a href="2005.html" ><button id="btn2005">2005</button></a>
+
+      <a href="2006.html" >  <button type="button" id="btn2006">2006</button> </a>
+
+   <a href="2007.html" >  <button type="button" id="btn2007">2007</button> </a>
+    <a href="2008.html" > <button type="button" id="btn2008">2008</button>  </a>
+     <button type="button" id="btn2009">2009</button> 
+         <a href="2010.html" >  <button type="button" id="btn2010">2010</button>  </a>
+    <a href="2011.html" > <button type="button" id="btn2011">2011</button> </a>
+     <a href="2012.html" >    <button type="button" id="btn2012">2012</button> </a> 
+     <a href="2013.html" >  <button type="button" id="btn2013">2013</button> </a>
+   <a href="2014.html" ><button type="button" id="btn2014">2014</button> </a>
+
+ </center>
+
+
+
+
+
+ <br/>
+  <br/>
+   <br/>
+   
+
+<canvas id="circle" width="15" height="15"></canvas>
+<label for="winner">Rafael Nadal (Winner) </label>
+<br/>
+
+
+<canvas id="circle1" width="15" height="15"></canvas>
+<label for="loser"> Opponents </label>
+
+
+ <p><center><h2>2009 <br/>
+         Champion: Never miss a chance to RETURN, Always ahead in SECOND POINT and low on errors
+        </h2></center>
+    </p>
+
+ <script>
+     function test() {
+            buttontest.disabled=true;
+       }
+
+function draw()
+{
+    draw1();
+    draw2();
+   // draw3();
+}
+
+function draw1()
+  {
+var canvas = document.getElementById('circle');
+if (canvas.getContext)
+{
+var ctx = canvas.getContext('2d'); 
+var X = canvas.width / 2;
+var Y = canvas.height / 2;
+var R = 07;
+ctx.beginPath();
+ctx.arc(X, Y, R, 0, 2 * Math.PI, false);
+ctx.lineWidth = 3;
+ctx.strokeStyle = '#7FFF00';
+ctx.fillStyle='#7FFF00';
+ctx.fill();
+ctx.stroke();
+}
+}
+    
+
+function draw2()
+{
+var canvas1 = document.getElementById('circle1');
+if (canvas1.getContext)
+{
+var ctx = canvas1.getContext('2d'); 
+var X = canvas1.width /2;
+var Y = canvas1.height /2;
+var R = 07;
+ctx.beginPath();
+ctx.arc(X, Y+1, R, 0, 2 * Math.PI, false);
+ctx.lineWidth = 3;
+ctx.strokeStyle = '#ff4c4c';
+ctx.fillStyle='#ff4c4c';
+ctx.fill();
+ctx.stroke();
+}
+}
+
+
+function draw3()
+{
+var canvas1 = document.getElementById('circle2');
+if (canvas1.getContext)
+{
+var ctx = canvas1.getContext('2d'); 
+var X = canvas1.width /2;
+var Y = canvas1.height /2;
+var R = 30;
+ctx.beginPath();
+ctx.arc(X, Y+1, R, 0, 2 * Math.PI, false);
+ctx.lineWidth = 3;
+ctx.strokeStyle = '#ff9999';
+ctx.fillStyle='#ff9999';
+ctx.fill();
+ctx.stroke();
+}
+}
+
+    
+</script>
+
+
+
+ 
+    <div id="donut-charts"></div>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script>
+
+
+
+
+    $(function() {
+
+        var donutData = genData();
+
+        var donuts = new DonutCharts();
+        donuts.create(donutData);
+
+        
+
+      /*  $('#refresh-btn').on('click', function refresh() {
+            donuts.update(genData);
+        });  
+
+
+
+
+        $("btn2004").hover(function(){
+    $(this).css("background-color", "yellow");
+    }, function(){
+    $(this).css("background-color", "pink");
+}); */
+    
+
+    });
+    
+
+    function DonutCharts() {
+
+        var charts = d3.select('#donut-charts');
+
+        var chart_m,
+            chart_r,
+          //  color = d3.scale.category20();
+         color=[ '#7FFF00', '#00FF7F','#98FB98', '#ff9999','#ff6666','#ff4c4c'];
+         //  color=['#4f3ed5', '#61aefd', '#8be0fe',  '#98FB98','#00FF7F','#7FFF00','#32CD32'];
+         //  color=['#4f3ed5', '#61aefd', '#8be0fe',  '#ff9999', '#ff4c4c', '#ff1919'];
+
+           //    color="#3366cc";
+
+        var getNames = function() {
+            var Names = new Array();
+
+           Names[0]="Nadal(Winner)";
+           Names[1]="Loser";
+
+            return Names;
+        }
+
+      /*  var createLegend = function(catNames) {
+            var legends = charts.select('.legend')
+                            .selectAll('g')
+                                .data(catNames)
+                            .enter().append('g')
+                                .attr('transform', function(d, i) {
+                                    return 'translate(' + (i * 150 + 50) + ', 10)';
+                                });
+    
+            legends.append('circle')
+                .attr('class', 'legend-icon')
+                .attr('r', 6)
+                .style('fill', function(d, i) {
+                    return color[0];
+                });
+    
+            legends.append('text')
+                .attr('dx', '1em')
+                .attr('dy', '.3em')
+                .text(function(d) {
+                    return d;
+                });
+        }  */
+
+
+        var createLegend = function(Names) {
+            var legends = charts.select('.legend')
+                            .selectAll('g')
+                                .data(Names)
+                            .enter().append('g')
+                                .attr('transform', function(d) {
+                                    return 'translate(' + (150 + 50) + ', 10)';
+                                });
+    
+            legends.append('circle')
+                .attr('class', 'legend-icon')
+                .attr('r', 6)
+                .style('fill', function(d) {
+                    return color[0];
+                });
+    
+            legends.append('text')
+                .attr('dx', '1em')
+                .attr('dy', '.3em')
+                .text(function(d) {
+                    return d;
+                });
+        }
+
+        
+        createLegend(getNames());
+
+        var createCenter = function(pie) {
+
+            var eventObj = {
+                'mouseover': function(d, i) {
+                    d3.select(this)
+                        .transition()
+                        .attr("r", chart_r * 0.65);
+                },
+
+                'mouseout': function(d, i) {
+                    d3.select(this)
+                        .transition()
+                        .duration(500)
+                        .ease('bounce')
+                        .attr("r", chart_r * 0.6);
+                },
+
+                'click': function(d, i) {
+                    var paths = charts.selectAll('.clicked');
+                    pathAnim(paths, 0);
+                    paths.classed('clicked', false);
+                    resetAllCenterText();
+                }
+            }
+
+            var donuts = d3.selectAll('.donut');
+
+            // The circle displaying total data.
+            donuts.append("svg:circle")
+                .attr("r", chart_r * 0.6)
+                .style("fill", "#E7E7E7")
+                .on(eventObj);
+    
+            donuts.append('text')
+                    .attr('class', 'center-txt type')
+                    .attr('y', chart_r * -0.16)
+                    .attr('text-anchor', 'middle')
+                    .style('font-weight', 'bold')
+                    .text(function(d, i) {
+                        return d.type;
+                    });
+            donuts.append('text')
+                    .attr('class', 'center-txt value')
+                    .attr('text-anchor', 'middle');
+            donuts.append('text')
+                    .attr('class', 'center-txt percentage')
+                    .attr('y', chart_r * 0.16)
+                    .attr('text-anchor', 'middle')
+                    .style('fill', '#A2A2A2');
+        }
+
+            var setCenterText = function(thisDonut) {
+            var sum = d3.sum(thisDonut.selectAll('.clicked').data(), function(d) {
+                return d.data.val;
+            });
+
+            thisDonut.select('.value')
+                .text(function(d) {
+                   // return (sum)? sum.toFixed(1) + d.unit
+                   //             : d.total.toFixed(1) + d.unit;
+                 //  return '';  // test
+                });
+            thisDonut.select('.percentage')
+                .text(function(d) {
+                  //  return (sum)? (sum/d.total*100).toFixed(2) + '%'
+                  //              : '';
+                 // return '';  //abhi
+                });
+        }
+
+        var resetAllCenterText = function() {
+            charts.selectAll('.value')
+                .text(function(d) {
+                    // return d.total.toFixed(1) + d.unit;
+                });
+            charts.selectAll('.percentage')
+                .text('');
+        }
+
+        var pathAnim = function(path, dir) {
+            switch(dir) {
+                case 0:
+                    path.transition()
+                        .duration(500)
+                        .ease('bounce')
+                        .attr('d', d3.svg.arc()
+                            .innerRadius(chart_r * 0.7)
+                            .outerRadius(chart_r)
+                        );
+                    break;
+
+                case 1:
+                    path.transition()
+                        .attr('d', d3.svg.arc()
+                            .innerRadius(chart_r * 0.7)
+                            .outerRadius(chart_r * 1.08)
+                        );
+                    break;
+            }
+        }
+
+        
+        var final=["Finals","Semi-finals","Quarters","Quarters","Semi-finals","Finals",];
+ 
+        var updateDonut = function() {
+
+            var eventObj = {
+
+                'mouseover': function(d, i, j) {
+                    pathAnim(d3.select(this), 1);
+
+                    var thisDonut = charts.select('.type' + j);
+                    thisDonut.select('.value').text(function(donut_d) {
+                        return d.data.val.toFixed(1) + donut_d.unit;
+                    });
+                    thisDonut.select('.percentage').text(function(donut_d) {
+                       // return (d.data.val/donut_d.total*100).toFixed(2) + '%';
+                         return final[i];
+                    });
+                },
+                
+                'mouseout': function(d, i, j) {
+                    var thisPath = d3.select(this);
+                    if (!thisPath.classed('clicked')) {
+                        pathAnim(thisPath, 0);
+                    }
+                    var thisDonut = charts.select('.type' + j);
+                    setCenterText(thisDonut);
+                },
+
+                'click': function(d, i, j) {
+                    var thisDonut = charts.select('.type' + j);
+
+                    if (0 === thisDonut.selectAll('.clicked')[0].length) {
+                        thisDonut.select('circle').on('click')();
+                    }
+
+                    var thisPath = d3.select(this);
+                    var clicked = thisPath.classed('clicked');
+                    pathAnim(thisPath, ~~(!clicked));
+                    thisPath.classed('clicked', !clicked);
+
+                    setCenterText(thisDonut);
+                }
+            };
+
+            var pie = d3.layout.pie()
+                            .sort(null)
+                            .value(function(d) {
+                                return d.val;
+                            });
+
+            var arc = d3.svg.arc()
+                            .innerRadius(chart_r * 0.7)
+                            .outerRadius(function() {
+                                return (d3.select(this).classed('clicked'))? chart_r * 1.08
+                                                                           : chart_r;
+                            });
+
+            // Start joining data with paths
+            var paths = charts.selectAll('.donut')
+                            .selectAll('path')
+                            .data(function(d, i) {
+                                return pie(d.data);
+                            });
+
+            paths
+                .transition()
+                .duration(1000)
+                .attr('d', arc);
+
+            paths.enter()
+                .append('svg:path')
+                    .attr('d', arc)
+                    .style('fill', function(d, i) {
+                        return color[i];
+                    })
+                    .style('stroke', '#FFFFFF')
+                    .on(eventObj)
+
+            paths.exit().remove();
+
+            resetAllCenterText();
+        }
+
+        this.create = function(dataset) {
+            var $charts = $('#donut-charts');
+            chart_m = $charts.innerWidth() / dataset.length / 2 * 0.14;
+            chart_r = $charts.innerWidth() / dataset.length / 2 * 0.85;
+
+            charts.append('svg')
+                .attr('class', 'legend')
+                .attr('width', '100%')
+                .attr('height', 50)
+                .attr('transform', 'translate(0, -100)');
+
+            var donut = charts.selectAll('.donut')
+                            .data(dataset)
+                        .enter().append('svg:svg')
+                            .attr('width', (chart_r + chart_m) * 2)
+                            .attr('height', (chart_r + chart_m) * 2)
+                        .append('svg:g')
+                            .attr('class', function(d, i) {
+                                return 'donut type' + i;
+                            })
+                            .attr('transform', 'translate(' + (chart_r+chart_m) + ',' + (chart_r+chart_m) + ')');
+
+          //  createLegend(getCatNames(dataset));
+            createCenter();
+
+            updateDonut();
+        }
+    
+        this.update = function(dataset) {
+            // Assume no new categ of data enter
+            var donut = charts.selectAll(".donut")
+                        .data(dataset);
+
+            updateDonut();
+        }
+    }
+
+
+    /*
+     * Returns a json-like object.
+     */
+    function genData() {
+        var type = ['Return', 'Second Point Won', 'Error'];
+        var unit = ['%', '%', ''];
+        var cat = ['Match1', 'Match2', 'Match3', 'Match4', 'Match5','Match6'];
+
+        var dataset = new Array();
+
+        for (var i = 0; i < type.length; i++) {
+
+
+            var data = new Array();
+            var total = 0;
+
+            // Errors
+          if(i==0)
+          {
+           data.push({"cat":cat[0],"val":40});
+           data.push({"cat":cat[1],"val":34});
+           data.push({"cat":cat[2],"val":44});
+           data.push({"cat":cat[3],"val":32});
+           data.push({"cat":cat[4],"val":31});
+           data.push({"cat":cat[5],"val":41});
+          }
+          
+          // Second Point win
+          if(i==1)
+          {
+
+ data.push({"cat":cat[0],"val":48});
+           data.push({"cat":cat[1],"val":62});
+           data.push({"cat":cat[2],"val":58});
+           data.push({"cat":cat[3],"val":38});
+           data.push({"cat":cat[4],"val":55});
+           data.push({"cat":cat[5],"val":45});
+
+     
+          }
+
+        // 3rd parameter
+             if(i==2)
+          {
+    
+
+              
+    data.push({"cat":cat[0],"val":41});
+           data.push({"cat":cat[1],"val":25});
+           data.push({"cat":cat[2],"val":24});
+           data.push({"cat":cat[3],"val":41});
+           data.push({"cat":cat[4],"val":76});
+           data.push({"cat":cat[5],"val":64});
+          }
+
+       
+
+
+ /* for (var j = 0; j < cat.length; j++) {
+                var value = Math.random()*10*(3-i);
+                total += value;
+                data.push({
+                    "cat": cat[j],
+                    "val": value
+                });
+            }  */
+
+
+
+
+
+            dataset.push({
+                "type": type[i],
+                "unit": unit[i],
+                "data": data,
+                "total": total
+            });
+        }
+        return dataset;
+    }
+
+
+    </script>
+   
+
+</body>
